@@ -1,0 +1,152 @@
+{
+  "ApplicationName": "EVM",
+  "DisplayName": "vote app!",
+  "Description": "A simple application to vote",
+  "ApplicationRoles": [
+    {
+      "Name": "EC",
+      "Description": "A governing body"
+    },
+    {
+      "Name": "Party",
+      "Description": "A committee to be voted"
+    },
+    {
+      "Name": "Voter",
+      "Description": "A person who casts a vote"
+    }
+  ],
+  "Workflows": [
+    {
+      "Name": "HelloBlockchain",
+      "DisplayName": "casting vote",
+      "Description": "A simple workflow to vote",
+      "Initiators": [ "EC" ],
+      "StartState": "Request",
+      "Properties": [
+        {
+          "Name": "State",
+          "DisplayName": "State",
+          "Description": "Holds the state of the contract.",
+          "Type": {
+            "Name": "state"
+          }
+        },
+        {
+          "Name": "EC",
+          "DisplayName": "EC",
+          "Description": "A oganization sending a request.",
+          "Type": {
+            "Name": "EC"
+          }
+        },
+        {
+          "Name": "Voter",
+          "DisplayName": "Voter",
+          "Description": "A person sending a vote.",
+          "Type": {
+            "Name": "Voter"
+          }
+        },
+        {
+          "Name": "Requestvote",
+          "DisplayName": "Requestvote",
+          "Description": "A request vote.",
+          "Type": {
+            "Name": "string"
+          }
+        },
+        {
+          "Name": "ResponseMessage",
+          "DisplayName": "Response Message",
+          "Description": "A response message.",
+          "Type": {
+            "Name": "string"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+          {
+            "Name": "message",
+            "Description": "...",
+            "DisplayName": "Request Message",
+            "Type": {
+              "Name": "string"
+            }
+          }
+        ]
+      },
+      "Functions": [
+        {
+          "Name": "SendRequest",
+          "DisplayName": "Request",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "requestMessage",
+              "Description": "...",
+              "DisplayName": "Request Message",
+              "Type": {
+                "Name": "string"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "SendResponse",
+          "DisplayName": "Response",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "responseMessage",
+              "Description": "...",
+              "DisplayName": "Response Message",
+              "Type": {
+                "Name": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "States": [
+        {
+          "Name": "Request",
+          "DisplayName": "Request",
+          "Description": "...",
+          "PercentComplete": 50,
+          "Value": 0,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": ["Voter"],
+              "AllowedInstanceRoles": [],
+              "Description": "...",
+              "Function": "SendResponse",
+              "NextStates": [ "Respond" ],
+              "DisplayName": "Send Response"
+            }
+          ]
+        },
+        {
+          "Name": "Respond",
+          "DisplayName": "Respond",
+          "Description": "...",
+          "PercentComplete": 90,
+          "Value": 1,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": ["EC"],
+              "Description": "...",
+              "Function": "SendRequest",
+              "NextStates": [ "Request" ],
+              "DisplayName": "Send Request"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
